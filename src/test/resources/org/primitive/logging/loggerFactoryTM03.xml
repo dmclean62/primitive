@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ * Copyright (C) 2020, Donald McLean. All rights reserved.
+ *
+ * This program and the accompanying materials are licensed under
+ * the terms of the GNU General Public License version 3.0
+ * as published by the Free Software Foundation.
+-->
+
+<!--
+ *  Used in ModuleLoaderTest.checkBasicLoading to check that the ModuleLoader can load a simple test module.
+ -->
+<manifest>
+    <module name="hostName" class="org.primitive.services.HostNameModule" simulate="simulate.hostName"/>
+    <module name="logging" class="org.primitive.logging.LogbackLoggingModule">
+        <configuration logType="one">
+            <timestamp key="bySecond" datePattern="yyyyMMdd'T'HHmmss"/>
+
+            <appender name="FILE" class="org.primitive.logging.TestableFileAppender">
+                <file>LFS.003.one-${bySecond}.log</file>
+                <append>true</append>
+                <!-- set immediateFlush to false for much higher logging throughput -->
+                <immediateFlush>true</immediateFlush>
+                <!-- encoders are assigned the type
+                     ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+                <encoder>
+                    <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+                </encoder>
+            </appender>
+
+            <root level="TRACE">
+                <appender-ref ref="FILE" />
+            </root>
+        </configuration>
+        <configuration logType="two">
+            <timestamp key="bySecond" datePattern="yyyyMMdd'T'HHmmss"/>
+
+            <appender name="FILE" class="org.primitive.logging.TestableFileAppender">
+                <file>LFS.003.two-${bySecond}.log</file>
+                <append>true</append>
+                <!-- set immediateFlush to false for much higher logging throughput -->
+                <immediateFlush>true</immediateFlush>
+                <!-- encoders are assigned the type
+                     ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+                <encoder>
+                    <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+                </encoder>
+            </appender>
+
+            <root level="TRACE">
+                <appender-ref ref="FILE" />
+            </root>
+        </configuration>
+        <configuration>
+            <timestamp key="bySecond" datePattern="yyyyMMdd'T'HHmmss"/>
+
+            <appender name="FILE" class="org.primitive.logging.TestableFileAppender">
+                <file>LFS.003.fallthrough-${bySecond}.log</file>
+                <append>true</append>
+                <!-- set immediateFlush to false for much higher logging throughput -->
+                <immediateFlush>true</immediateFlush>
+                <!-- encoders are assigned the type
+                     ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+                <encoder>
+                    <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+                </encoder>
+            </appender>
+
+            <root level="TRACE">
+                <appender-ref ref="FILE" />
+            </root>
+        </configuration>
+    </module>
+    <module name="rootModuleEvents" class="org.primitive.message.MessageModule"/>
+</manifest>
