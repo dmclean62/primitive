@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+* Copyright (C) 2020, Donald McLean. All rights reserved.
+*
+* This program and the accompanying materials are licensed under
+* the terms of the GNU General Public License version 3.0
+* as published by the Free Software Foundation.
+-->
+
+<!--
+ *  Used in ModuleLoaderTest.checkBasicLoading to check that the ModuleLoader can load a simple test module.
+ -->
+<manifest logEnabled="true">
+    <reference path="build/resources/test/org/primitive/logging/loggerTM.xml"/>
+
+    <module name="dummy" class="org.primitive.ml.TestModule" />
+
+    <module name="rootModuleEvents" class="org.primitive.message.MessageModule"/>
+    <module name="neo" class="org.primitive.db.NeoConnectorModule">
+        <credentials user="neo4j" password="ThisIsaTestPassword."/>
+        <url>bolt://localhost:7687</url>
+        <typeDefinitions>
+            <type name="TravellerCampaign">
+                <property name="name" type="String" required="true" unique="true"/>
+                <property name="owner" type="String" required="true"/>
+            </type>
+        </typeDefinitions>
+    </module>
+</manifest>

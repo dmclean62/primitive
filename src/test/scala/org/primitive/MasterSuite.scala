@@ -14,7 +14,7 @@ import org.scalatest.Sequential
 
 class MasterSuite extends Sequential(
   new ModuleLoaderSuite,
-  new LoggerFactorySuite/*,
+  new LoggerFactorySuite,
   new PropertyTypeTest,
-  new NeoConnectorSuite*/
+  new NeoConnectorSuite
 )
