@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+* Copyright (C) 2020, Donald McLean. All rights reserved.
+*
+* This program and the accompanying materials are licensed under
+* the terms of the GNU General Public License version 3.0
+* as published by the Free Software Foundation.
+-->
+
+<!--
+ *  Used in ModuleLoaderTest.checkBasicLoading to check that the ModuleLoader can load a simple test module.
+ -->
+<manifest logEnabled="true">
+    <module name="logging" class="org.primitive.logging.LogbackLoggingModule">
+        <configuration>
+            <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+                <!-- encoders are assigned the type
+                     ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+                <encoder>
+                    <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+                </encoder>
+            </appender>
+
+            <root level="debug">
+                <appender-ref ref="STDOUT" />
+            </root>
+        </configuration>
+    </module>
+
+    <module name="dummy" class="org.primitive.ml.TestModule" />
+    <module name="rootModuleEvents" class="org.primitive.message.MessageModule"/>
+</manifest>
