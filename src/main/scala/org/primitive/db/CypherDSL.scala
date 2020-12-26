@@ -53,9 +53,9 @@ class CypherWrapper(g: CypherGateway, space: Option[NodeSpace]) extends NeedsCla
   def CREATE(l: LabelTokenWithLabel): CreateNodeOp = new CreateNodeOp(g, None, l.label)
 
   def MATCH(l: LabelTokenWithLabel): OpResult[NeoNode] = g.runs(new MatchLabel(None, l.label))
-  def MATCH(i: IndexValueToken): OpResult[NeoNode] = g.runs(new MatchIndex(space, RETURN_CLAUSE, i.index))
+  def MATCH(i: IndexValueToken): OpResult[NeoNode] = g.runs(new MatchIndex(space, RETURN_CLAUSE, i.index, ReadTransaction))
 
-  def DELETE(i: IndexValueToken): OpResult[NeoNode] = g.runs(new MatchIndex(space, DELETE_CLAUSE, i.index))
+  def DELETE(i: IndexValueToken): OpResult[NeoNode] = g.runs(new MatchIndex(space, DELETE_CLAUSE, i.index, WriteTransaction))
   def DELETE(s: NodeSpace): OpResult[Unit] = g.runs(new DeleteNodeSpace(s))
 }
 
@@ -126,9 +126,9 @@ class InNodeSpaceOp(g: CypherGateway, space: NodeSpace) extends NeedsClauseNames
   def CREATE(l: LabelTokenWithLabel): CreateNodeOp = new CreateNodeOp(g, Some(space), l.label)
 
   def MATCH(l: LabelTokenWithLabel): OpResult[NeoNode] = g.runs(new MatchLabel(Some(space), l.label))
-  def MATCH(i: IndexValueToken): OpResult[NeoNode] = g.runs(new MatchIndex(Some(space), RETURN_CLAUSE, i.index))
+  def MATCH(i: IndexValueToken): OpResult[NeoNode] = g.runs(new MatchIndex(Some(space), RETURN_CLAUSE, i.index, ReadTransaction))
 
-  def DELETE(i: IndexValueToken): OpResult[NeoNode] = g.runs(new MatchIndex(Some(space), DELETE_CLAUSE, i.index))
+  def DELETE(i: IndexValueToken): OpResult[NeoNode] = g.runs(new MatchIndex(Some(space), DELETE_CLAUSE, i.index, WriteTransaction))
 }
 
 class NeedLabelNameForRequest(g: CypherGateway) {
@@ -282,10 +282,10 @@ class MatchLabel(space: Option[NodeSpace], label: NodeLabel)
   }
 }
 
-class MatchIndex(space: Option[NodeSpace], actionClause: String, index: Long)
+class MatchIndex(space: Option[NodeSpace], actionClause: String, index: Long, transactionType: TransactionType)
   extends ExecutableCypherRequest[NeoNode] {
 
-  override def getType: TransactionType = ReadTransaction
+  override def getType: TransactionType = transactionType
 
   /**
    * Run the Cypher request and give the result to the future from the parent trait

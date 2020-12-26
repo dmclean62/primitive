@@ -340,7 +340,10 @@ trait TransactionType {
 
 object ReadTransaction extends TransactionType {
   override def runTransaction[T](internal: ConnectorInternal, session: Session, logger: Logger, request: ExecutableCypherRequest[T]): Unit =
-    session.readTransaction((tx: Transaction) => request.runRequest(internal, logger, tx))
+    session.readTransaction((tx: Transaction) => {
+      logger.info("[ReadTransaction.runTransaction] running {}", request)
+      request.runRequest(internal, logger, tx)
+    })
 }
 
 object WriteTransaction extends TransactionType {

@@ -35,7 +35,7 @@ dependencies {
     compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
 
-    compile group: 'org.neo4j.driver', name: 'neo4j-java-driver', version: '4.0.3'
+    compile group: 'org.neo4j.driver', name: 'neo4j-java-driver', version: '4.2.0'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
 
     testCompile group: 'org.scalatest', name: 'scalatest_2.13', version: '3.2.2'

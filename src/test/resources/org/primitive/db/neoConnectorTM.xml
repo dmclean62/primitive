@@ -17,7 +17,11 @@
 
     <module name="rootModuleEvents" class="org.primitive.message.MessageModule"/>
     <module name="neo" class="org.primitive.db.NeoConnectorModule">
-        <credentials user="neo4j" password="ThisIsaTestPassword."/>
+<!--  *************      WARNING      ******************      -->
+<!--  DO NOT COMMIT AN ACTUAL PASSWORD TO THE REPOSITORY      -->
+        <credentials user="neo4j" password="xxxxxxxxxxxxx"/>
+<!--  DO NOT COMMIT AN ACTUAL PASSWORD TO THE REPOSITORY      -->
+<!--  *************      WARNING      ******************      -->
         <url>bolt://localhost:7687</url>
         <typeDefinitions>
             <type name="TravellerCampaign">
